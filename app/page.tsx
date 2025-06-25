@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Dropzone from '@/components/Dropzone';
+import ImageWithOverlay from '@/components/ImageWithOverlay';
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -32,10 +33,12 @@ export default function Home() {
     <main className="min-h-screen p-4 flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold mb-4">Auto Translate Image</h1>
 
-      <Dropzone onImageUpload={(url) => {
-        setImageUrl(url);
-        setTranslatedText(null);
-      }} />
+      <Dropzone
+        onImageUpload={(url) => {
+          setImageUrl(url);
+          setTranslatedText(null);
+        }}
+      />
 
       {imageUrl && (
         <>
@@ -54,10 +57,10 @@ export default function Home() {
         </>
       )}
 
-      {translatedText && (
-        <div className="mt-4 max-w-md p-4 border rounded bg-gray-100 whitespace-pre-wrap">
-          <h2 className="font-semibold mb-2">Translated Text:</h2>
-          <p>{translatedText}</p>
+      {translatedText && imageUrl && (
+        <div className="mt-4 max-w-md p-4 border rounded bg-gray-100">
+          <h2 className="font-semibold mb-2">Image with Translation Overlay:</h2>
+          <ImageWithOverlay imageUrl={imageUrl} text={translatedText} />
         </div>
       )}
     </main>
